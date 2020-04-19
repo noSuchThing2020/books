@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    homepage
+{% endblock %}
+
+{% block main %}
+<div class="container">  
+    <h1>Book Hub</h1>
+    <p>Enjoy reading? Let's read,comment and share your loved books!</p>
+    {% if session.user_id %}
+    <div class="buttons">
+        <a href="/search" class="btn-success my-2 mr-2 my-sm-0 btn-lg">Start Search</a>
+    </div>
+    {% else %}
+    <div class="buttons">
+        <a href="/login" class="btn-success my-2 mr-2 my-sm-0 btn-lg">Log in</a>
+        <a href="/register" class="btn-primary my-2 my-sm-0 btn-lg">Register</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block sections %}
+<section class="container sectionA">
+    <div class="section-left">
+        <div class="inner-wrapper">
+        <h3 class="h-c-headline h-c-headline--two h-c-headline h-c-headline--three">
+            Hesitating on which book to read next? why not get insightful recommendations from here.
+        </h3>
+        <p class="h-c-copy h-c-copy--one">
+            It's not easy to find the right book, so a little help from the community makes big difference. 
+        </p>
+        {% if session.user_id %}
+        <a class="h-c-link h-c-link--internal internal-link" href="/search">
+            Start broswering 
+        </a>
+        {% else %}
+        <a class="h-c-link h-c-link--internal internal-link" href="/register">
+            Start broswering by register your an account
+        </a>
+        {% endif %}
+        </div>
+    </div>
+    <div class="section-right">
+        <img src="/static/mobileView.png" alt="">
+    </div>
+ </section>
+ <section class="container sectionA">
+    <h3>Recent activities</h3>
+    {% if reviews %}
+    {% for review in reviews %}
+        <div class="our-reviews bd-callout">
+            <div class="blocker"></div> 
+            <div class="stars starrr" data-rating="{{review.review_score}}">
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star-empty"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star-empty"></span>
+            </div><br>
+            <p class="review-heading"><i class="fa fa-user-circle-o"></i> <span class="display-name">{{review.display_name}}</span> {{review.time}}</p> 
+            <p id="reviewBody" class="show-less">{{review.review_text}}</p>
+            <button onclick="displaymore(this)" id="toggle" class="more">Read more</button>  
+        </div>
+    {% endfor %}
+    {% endif %}
+ </section>
+ {% include "scrollTop.html" %}
+{% endblock %}

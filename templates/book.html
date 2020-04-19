@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    book
+{% endblock %}
+
+{% block main %}
+<style>
+    .main {
+        display: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block sections %}
+<img class="card-img-top img-fluid book-img" src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}.jpg" alt="bookCover" onerror="this.src='/static/imageNotFound.png';"/>
+<div class="book-reviews">
+    <h5>{{book.title}}</h5>
+    <p>By <b> <a href="https://www.google.com/search?q={{book.author}}" target="_blank">{{book.author}}</a> </b>published in <b>{{book.year}}</b></p>
+    <p>isbn:{{book.isbn}}</p>
+    <div class="score">
+        <b>{{goodreads_review.average_rating}}</b>/5 
+        based on {{goodreads_review.rating_count}} reviews on <a href="https://www.goodreads.com/">Good reads</a>
+    </div>
+</div>
+{% if reviews %}
+    {% for review in reviews %}
+        {%  if userInfo["display_name"] == review["display_name"] %}
+        <span class="bd-callout-info"></span>
+        {% endif %}
+        <div class="our-reviews bd-callout">
+            <div class="blocker"></div> 
+            <div class="stars starrr" data-rating="{{review.review_score}}">
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star-empty"></span>
+                <span class="glyphicon .glyphicon-star-empty glyphicon-star-empty"></span>
+            </div><br>
+            <p class="review-heading"><i class="fa fa-user-circle-o"></i> <span class="display-name">{{review.display_name}}</span> {{review.time}}</p> 
+            <p id="reviewBody" class="show-less">{{review.review_text}}</p>
+            <button onclick="displaymore(this)" id="toggle" class="more">Read more</button>  
+        </div>
+  {% endfor %}
+{% endif %}
+{% if submitted %}
+  <h4 class="alert alert-warning" role="alert">You already submitted your review (The one highlighted)!</h4>
+{% endif %}
+<div class="container">
+	<div class="row" style="margin-top:40px;">
+		<div class="col-md-12 leave-review">
+    	<div class="well well-sm">
+            <div class="text-right">
+                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
+            </div>
+        
+            <div class="row" id="post-review-box" style="display:none;">
+                <div class="col-md-12">
+                    <form accept-charset="UTF-8" action="/books/{{book.isbn}}" method="post">
+                        <input id="ratings-hidden" name="rating" type="hidden"> 
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+        
+                        <div class="text-right">
+                            <div class="stars starrr rating-score" data-rating="0"></div>
+                            <a class="btn btn-danger btn-md" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                            <button class="btn btn-success btn-md" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+         
+		</div>
+	</div>
+</div>
+{% include "scrollTop.html" %}
+{% endblock %}
+

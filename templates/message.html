@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    error
+{% endblock %}
+
+{% block main %}
+    <p class="alert alert-warning" role="alert">{{ message }}</p>
+    <a href="/register">Go back</a>
+{% endblock %}

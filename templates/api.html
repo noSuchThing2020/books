@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}
+    API
+{% endblock %}
+
+{% block main %}
+<style>
+    .main {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block sections %}
+<h2>Intro</h2>
+<div>
+    <p>This is a simple API generated using Python and PostgreSQL for you to play around.</p> 
+    <p>You can pass in the book isbn number in the request URL and get the book's information(title/author/year/review...) back.</p>
+    <p> <b>Request URL</b> : https://book-fun.herokuapp.com/api/&#x3C;isbn&#x3E;</p>
+    <p> <b>Request Method</b> : GET</p>
+    <p> <b>Response format</b> : JSON</p>
+</div>
+
+<h2>Example</h2>
+<p>
+Example GET request using fetch() promise:
+</p>
+<pre><code id="example" class="javascript">fetch(<span class="hljs-string">'https://book-fun.herokuapp.com/api/1595543414'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+  .then(<span class="hljs-function"><span class="hljs-params">json</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(json))
+</code></pre>
+<p>
+<button id="run-button" class="btn btn-primary">Send Request</button>
+</p>
+    <pre class="api-result"><code id="result" class="json hljs"></code></pre>
+    <h6 id="run-message" style="display: none;" class="alert alert-success">Your API call was successful!</h6>
+<p>
+<p>*You can also simply put the request URL into your broswer and see the results there</p>
+{% endblock %}

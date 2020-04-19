@@ -1,0 +1,445 @@
+/* brand color #46717e */
+
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+.book-hub-nav:before,
+.book-hub-nav:after {
+    display: none !important;
+}
+
+.book-hub-nav {
+    margin-bottom: 0 !important;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+body  {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+footer {
+    margin-top: 50px;
+}
+
+.header > img {
+    width: 100px;
+}
+
+.logo-img {
+    margin-top: 10px;
+}
+
+.main {
+    min-height: 500px;
+    background-image: url('/static/background.gif');
+    color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.section-left {
+    width: 60%;
+    display: inline-block;
+}
+
+.section-right {
+    width: 38%;
+    display: inline-block;
+    text-align: center;
+    float: right;
+}
+
+.section-right img {
+    width: 65%;
+}
+
+form {
+    margin-top: 30px;
+}
+
+.sections  {
+    margin-top: 50px;
+    display: block;
+}
+
+.sectionA:nth-of-type(1) {
+    padding-bottom: 50px;
+    border-bottom: 1px solid #999999;
+}
+
+.inner-wrapper {
+    margin-top: 20%;
+    width: 80%;
+}
+
+.search-result img,
+.book-img {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
+.card-deck .card {
+    min-width: 30%;
+}
+
+.card {
+    border: none;
+    border-bottom: 1px solid #555;
+}
+
+.search-form {
+    position: relative;
+    top: -18px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.search-form button {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    background: transparent;
+    color: #46717e;
+    font-size: 20px;
+    border: none;
+}
+.search-result {
+    border-radius: 20px 0 0 20px;
+}
+
+[name="searchText"] {
+    height: 50px;
+    border-radius: 12px;
+}
+.search-result .card-body {
+    text-align: center;
+}
+
+.result-heading {
+    font-size: 16px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.result-heading span {
+    font-size: 1.5rem;
+}
+
+.review-book-link {
+    margin: 0 auto;
+}
+
+.book-reviews {
+    text-align: center;
+}
+
+/*  back to Top button */
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #1d2124;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+#myBtn:hover {
+background-color: #555;
+}
+
+ul.logout.navbar-nav {
+    float: right;
+}
+
+.search-form > button:hover,
+.search-form > button:active {
+    background-color: #46717e;
+} 
+
+
+/* mobile only styles */
+@media only screen and (max-width: 756px) {
+    .section-left,
+    .section-right {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    .section-left {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #999999;
+    }
+
+    .inner-wrapper {
+        padding-left: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .inner-wrapper > h3 {
+        margin-top: 0;
+    }
+
+    ul.logout.navbar-nav {
+        float: none;
+        margin-left: -15px !important;
+    }
+
+    .sectionA {
+        margin-bottom: 50px;
+    }
+
+    .main {
+        min-height: 400px;
+    }
+}
+
+/**** Pagination  ****/
+
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
+.our-reviews {
+    position: relative;
+}
+
+.our-reviews .blocker{
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    height: 25px;
+    width: 300px;
+    z-index: 1000;
+}
+
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+
+.display-name {
+    color: #007bff
+}
+
+.score > b {
+    color: #28a745;
+}
+
+.inner-wrapper p,
+.inner-wrapper a {
+    font-size: 16px;
+}
+
+.rating-score {
+    padding: 15px;
+}
+
+.glyphicon-star {
+    color: orange;
+}
+
+.bd-callout-info + .our-reviews{
+    border-left-color: #5bc0de;
+}
+
+div.leave-review {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.show-less {
+    max-height: 40px;
+    overflow: hidden;
+}
+
+.more {
+    background: #fff;
+    border: none;
+    text-decoration: underline;
+}
+
+#close-review-box span {
+    left: -5px;
+}
+
+.register-message {
+    margin-top: 15px;;
+}
+
+.apology {
+    height: 300px;
+}
+
+.fa-facebook {
+    color: #3B5998;
+}
+
+.fa-twitter {
+    color: #55ACEE;
+}
+
+.fa-google {
+    color: #dd4b39;
+}
+
+.fa-linkedin {
+    color: #007bb5;
+}
+
+.search-result img, .book-img {
+    box-shadow: 5px 5px #999999;
+}
+
+/*  Plugin */
+
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+.checked {
+    color: orange;
+}
+
+/* Three column layout */
+.side {
+    float: left;
+    width: 15%;
+    margin-top:10px;
+}
+
+.middle {
+    margin-top:10px;
+    float: left;
+    width: 70%;
+}
+
+/* Place text to the right */
+.right {
+    text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* The bar container */
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+    .side, .middle {
+        width: 100%;
+    }
+    .right {
+        display: none;
+    }
+}
+
+.hljs-string {
+    color: #d14;
+}
+
+.api-result {
+    min-height: 80px;
+}

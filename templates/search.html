@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block search %}
+    <img class="card-img-top img-fluid" src="static/book-greens.jpg" alt="books">
+    <form action="/search" method="post" class="search-form">
+        <div class="form-group search">
+            <input type="text" name="searchText" placeholder="Search by name,isbn or author" class="form-control input-lg">
+        </div>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
+    <style>
+        .main {
+            display: none;
+        }
+        .sections {
+            margin-top: -15px;
+        }
+    </style>
+{% endblock %}
+
+{% block sections %}
+{% if loggedin %}  
+    <p class="alert alert-success">{{loggedin}}</p>
+{% endif %}
+{% if message %}  
+    <p class="alert alert-warning">{{message}}</p>
+{% endif %}
+{% if searchText %}    
+<p class="result-heading">You have searched: <b>{{searchText}}</b> <br> We found  <b>{{resultCount}}</b>  books for you</p>   
+{% endif %}
+    <div class="card-deck search-result">
+        {% for result in results %} 
+            <div class="card  mb-4">
+                <a href="{{ url_for('book', isbn=result.isbn)}}" class="review-book-link">
+                    <img class="card-img-top img-fluid" src="http://covers.openlibrary.org/b/isbn/{{result.isbn}}.jpg" alt="bookCover" onerror="this.src='/static/imageNotFound.png';"/>
+                </a>
+                <div class="card-body">
+                    <h5>{{result.title}}</h5>
+                    <p>By {{result.author}}</p>
+                </div>
+            </div>  
+        {% endfor %}
+    </div>
+    {% include "scrollTop.html" %}
+{% endblock %}
