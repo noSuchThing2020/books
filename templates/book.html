@@ -45,7 +45,7 @@
                 <input type="hidden" value={{review.id}} id="review_id"> 
                 <input type="hidden" value={{userInfo.id}} id="user_id">
                 {% if not review.count %}
-                <span id="{{review.id}}" class="none review-count">{{review.count}}</span> likes
+                <span id="{{review.id}}" class="none review-count">0</span> likes
                 {% else %}
                 <span id="{{review.id}}" class="review-count">{{review.count}}</span> likes
                 {% endif %}
