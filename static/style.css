@@ -111,6 +111,7 @@ form {
 .sections  {
     margin-top: 50px;
     display: block;
+    min-height: 150px;
 }
 
 .sectionA:nth-of-type(1) {
@@ -442,4 +443,48 @@ div.leave-review {
 
 .api-result {
     min-height: 80px;
+}
+
+
+/*****  vote likes ****/
+.vote {
+    position: absolute;
+    right: 20px;
+    bottom: 7px;
+    margin-top: 0;
+}
+
+.vote button {
+    opacity: 1;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.vote i {
+    font-size: 16px;
+} 
+
+.vote .disabled,
+.vote [disabled="disabled"] {
+    background-color: #007bff !important;
+    color: #fff;
+    opacity: 1 !important;
+    font-size: 12px;
+}
+
+.none {
+    display: none;
+}
+
+.recent-activity {
+    margin-top: 0;
+}
+
+.review-count {
+    display: inline-block;
+    padding-right: 3px;
+}
+
+.review-title {
+    color: #2e944b;
 }

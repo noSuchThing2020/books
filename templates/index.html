@@ -50,7 +50,8 @@
     <h3>Recent activities</h3>
     {% if reviews %}
     {% for review in reviews %}
-        <div class="our-reviews bd-callout">
+        <h7> {{review.display_name}}  posted review on <span class="review-title">"{{review.title}}"</span></h7>
+        <div class="our-reviews bd-callout recent-activity">
             <div class="blocker"></div> 
             <div class="stars starrr" data-rating="{{review.review_score}}">
                 <span class="glyphicon .glyphicon-star-empty glyphicon-star"></span>

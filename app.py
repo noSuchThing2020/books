@@ -40,8 +40,6 @@ Session(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
-print(engine)
-print(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
@@ -135,6 +133,10 @@ def book(isbn):
     goodreads_review = lookup(isbn)
     # Make sure the book exists. 
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    user_id = session["user_id"]
+    userLiked = db.execute("SELECT review_id FROM likes WHERE user_id = :user_id", {"user_id":user_id}).fetchall()
+    userlikedReviews = [item for t in userLiked for item in t]
+    print(userlikedReviews)
     if book is None:
         return render_template("error.html", message="No such book.")
     if request.method == "GET":
@@ -142,20 +144,22 @@ def book(isbn):
         oldReviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn ORDER BY id DESC", {"isbn": isbn}).fetchall()
         submitted = session["reviewSubmitted"]
         print(session["display_name"])
-        return render_template("book.html", book=book, goodreads_review = goodreads_review, reviews = oldReviews, display_name = session["display_name"], userInfo = userInfo, submitted = submitted)
+        print(userLiked)
+        #currentLike = db.execute("SELECT * FROM reviews WHERE id = :review_id", {"id":review_id}).fetchone()
+        return render_template("book.html", book=book, goodreads_review = goodreads_review, reviews = oldReviews, display_name = session["display_name"], userInfo = userInfo, submitted = submitted, userlikedReviews = userlikedReviews)
     else:
         # Preparing data for the db query
         now = datetime.datetime.now()
-        user_id = session["user_id"]
         score = request.form.get("rating")
         text = request.form.get("comment")
         time = now.strftime("%m/%d/%Y, %H:%M:%S")
+        title = book.title
         checkReviews = db.execute("SELECT * FROM reviews WHERE user_id = :user_id AND isbn = :isbn", {"user_id":user_id, "isbn": isbn}).fetchall()
         if len(checkReviews) > 0:
             session["reviewSubmitted"] = True
             return redirect(url_for('book',isbn=book.isbn, message="You have already submitted!"))
-        db.execute("INSERT INTO reviews(user_id, isbn, review_score, review_text, time, display_name) VALUES (:user_id, :isbn, :review_score, :review_text, :time, :display_name)",
-         {"user_id": user_id,"isbn": isbn, "review_score": score , "review_text": text, "time": time, "display_name":session["display_name"]})
+        db.execute("INSERT INTO reviews(user_id, isbn, review_score, review_text, time, display_name, title) VALUES (:user_id, :isbn, :review_score, :review_text, :time, :display_name, :title)",
+         {"user_id": user_id,"isbn": isbn, "review_score": score , "review_text": text, "time": time, "display_name":session["display_name"], "title": title})
         db.commit()
         # Use url_for instead of render_template to avoid resubmit the form when user refresh the page
         return redirect(url_for('book',isbn=book.isbn))
@@ -170,7 +174,7 @@ def bookReviewAPI(isbn):
         bookInfo = lookup(isbn)
         book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
         if book is None:
-            return jsonify({"error": "Invalid isbn"}), 422
+            return jsonify({"error": "Invalid isbn"}), 404
         else:
             return jsonify(
                 {
@@ -186,3 +190,30 @@ def bookReviewAPI(isbn):
 @app.route("/api", methods = ["GET"])
 def API():
     return render_template("api.html")
+
+
+@app.route("/vote", methods = ["POST"])
+def vote():
+    if request.method == "POST":
+        review_id = int(request.form['review_id'])
+        user_id = int(request.form['user_id'])
+        currentLike = db.execute("SELECT * FROM reviews WHERE id = :id", {"id":review_id}).fetchone()
+        userLiked = db.execute("SELECT review_id FROM likes WHERE user_id = :user_id", {"user_id":user_id}).fetchall()
+        # Update liked count in reviews tab
+        if currentLike.count != None:
+            count = currentLike.count
+            db.execute("UPDATE reviews SET count = count + 1 WHERE id=:id", {"id":review_id})
+            count += 1
+        else:
+            count = 1
+            #db.execute("INSERT INTO likes(review_id, count, user_id) VALUES (:review_id, :count, :user_id)", 
+            #{"review_id":review_id, "count":count, "user_id":user_id})
+            db.execute("UPDATE reviews SET count = 1 WHERE id=:id", {"id":review_id})
+        
+        # Update user liked review
+        userlikedReviews = [item for t in userLiked for item in t] 
+        if review_id not in userlikedReviews:
+            db.execute("INSERT INTO likes(review_id, user_id) VALUES (:review_id, :user_id)",
+            {"review_id":review_id, "user_id": user_id})
+        db.commit()
+        return jsonify({'count' : count})

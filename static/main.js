@@ -66,6 +66,32 @@ $(document).ready(function(){
           });
       };
     }
+
+    // Update the review like count 
+    $('form.vote').on('submit', function(event) {
+      // Prepare ths data for the POST request
+      review_id = $(this).find("#review_id").val();
+      user_id = $(this).find('#user_id').val()
+      id = "#" + $(this).find("#review_id").val();
+      likeButton = $(this).find(".btn")
+      $.ajax({
+        data : {
+          review_id : review_id,
+          user_id : user_id
+        },
+        type : 'POST',
+        url : '/vote'
+      })
+      .done(function(data) {
+        // update the count number on the UI
+        $(id).text(data['count']);
+        $(id).removeClass("none");
+        likeButton.attr("disabled", true);
+        likeButton.addClass("disabled");
+        likeButton.html("liked <i class=\"fa fa-thumbs-o-up\"></i>");
+      });
+      event.preventDefault();
+    });
 });
  
  
