@@ -158,8 +158,9 @@ def book(isbn):
         if len(checkReviews) > 0:
             session["reviewSubmitted"] = True
             return redirect(url_for('book',isbn=book.isbn, message="You have already submitted!"))
-        db.execute("INSERT INTO reviews(user_id, isbn, review_score, review_text, time, display_name, title) VALUES (:user_id, :isbn, :review_score, :review_text, :time, :display_name, :title)",
-         {"user_id": user_id,"isbn": isbn, "review_score": score , "review_text": text, "time": time, "display_name":session["display_name"], "title": title})
+        count = 0
+        db.execute("INSERT INTO reviews(user_id, isbn, review_score, review_text, time, display_name, count, title) VALUES (:user_id, :isbn, :review_score, :review_text, :time, :display_name, :count, :title)",
+         {"user_id": user_id,"isbn": isbn, "review_score": score , "review_text": text, "time": time, "display_name":session["display_name"], "count": count, "title": title})
         db.commit()
         # Use url_for instead of render_template to avoid resubmit the form when user refresh the page
         return redirect(url_for('book',isbn=book.isbn))
